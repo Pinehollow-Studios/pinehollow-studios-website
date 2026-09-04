@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Pinehollow Studios — a two-person iOS software studio.";
+export const alt = "Pinehollow Studios — an independent software studio.";
 
 // "The lean" mark, brand gradient, as a data URI for the card header.
 const markSvg = `
@@ -20,24 +20,12 @@ const markSvg = `
 </svg>
 `.trim();
 
-// Faint contour rings — the site's topo motif, echoed on the card.
-const contourSvg = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
-  <g fill="none" stroke="#7FE4FF" stroke-width="1.5">
-    <ellipse cx="300" cy="300" rx="90" ry="70" stroke-opacity="0.20" transform="rotate(-14 300 300)"/>
-    <ellipse cx="310" cy="306" rx="160" ry="124" stroke-opacity="0.15" transform="rotate(-10 310 306)"/>
-    <ellipse cx="322" cy="314" rx="232" ry="180" stroke-opacity="0.11" transform="rotate(-6 322 314)"/>
-    <ellipse cx="336" cy="322" rx="304" ry="238" stroke-opacity="0.07" transform="rotate(-2 336 322)"/>
-  </g>
-</svg>
-`.trim();
-
 const font = (file: string) => readFile(join(process.cwd(), "assets/fonts", file));
 
 export default async function OgImage() {
-  const [extraBold, light] = await Promise.all([
-    font("BricolageGrotesque-ExtraBold.ttf"),
-    font("BricolageGrotesque-Light.ttf"),
+  const [extraBold, medium] = await Promise.all([
+    font("Manrope-ExtraBold.ttf"),
+    font("Manrope-Medium.ttf"),
   ]);
 
   return new ImageResponse(
@@ -48,99 +36,82 @@ export default async function OgImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: 76,
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 72,
           backgroundColor: "#060A0F",
           backgroundImage:
-            "radial-gradient(700px 480px at 86% 8%, rgba(127,228,255,0.14), transparent 65%), radial-gradient(900px 640px at -5% 105%, rgba(42,74,94,0.50), transparent 70%)",
+            "radial-gradient(620px 400px at 50% 38%, rgba(127,228,255,0.16), transparent 65%), radial-gradient(900px 520px at 50% 70%, rgba(42,74,94,0.5), transparent 70%)",
           color: "#F1F5F2",
-          fontFamily: "Bricolage",
+          fontFamily: "Manrope",
           position: "relative",
         }}
       >
-        {/* contour field, bleeding off the right edge */}
-        <img
-          width={700}
-          height={700}
-          src={`data:image/svg+xml;utf8,${encodeURIComponent(contourSvg)}`}
-          alt=""
-          style={{ position: "absolute", top: -60, right: -150 }}
-        />
-
-        {/* masthead */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 26 }}>
-            <img
-              width={72}
-              height={72}
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(markSvg)}`}
-              alt=""
-            />
-            <div
-              style={{
-                fontSize: 30,
-                fontWeight: 800,
-                letterSpacing: "0.06em",
-              }}
-            >
-              PINEHOLLOW
-            </div>
-          </div>
-          <div
-            style={{
-              fontSize: 17,
-              fontWeight: 300,
-              letterSpacing: "0.3em",
-              color: "rgba(241,245,242,0.55)",
-            }}
-          >
-            INDEPENDENT SOFTWARE STUDIO
-          </div>
+        {/* pill masthead */}
+        <div
+          style={{
+            position: "absolute",
+            top: 56,
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            padding: "12px 22px 12px 16px",
+            border: "1px solid rgba(241,245,242,0.14)",
+            borderRadius: 999,
+            fontSize: 20,
+            fontWeight: 800,
+            letterSpacing: "0.06em",
+          }}
+        >
+          <img width={28} height={28} src={`data:image/svg+xml;utf8,${encodeURIComponent(markSvg)}`} alt="" />
+          PINEHOLLOW
         </div>
 
-        {/* headline — echoes the site hero */}
+        {/* headline */}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            fontSize: 104,
-            lineHeight: 0.98,
-            letterSpacing: "-0.02em",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            maxWidth: 940,
+            fontSize: 96,
+            lineHeight: 1,
+            letterSpacing: "-0.04em",
             fontWeight: 800,
+            textAlign: "center",
           }}
         >
-          <span>WE DESIGN</span>
-          <span>&amp; BUILD</span>
-          <span style={{ color: "#D6F5FF", fontWeight: 300, letterSpacing: "-0.025em" }}>
-            software.
+          <span style={{ display: "flex" }}>We make software</span>
+          <span style={{ display: "flex", gap: 22 }}>
+            <span>we&apos;d want to</span>
+            <span style={{ color: "#7FE4FF" }}>use.</span>
           </span>
         </div>
 
         {/* foot strip */}
         <div
           style={{
+            position: "absolute",
+            bottom: 56,
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: 19,
-            fontWeight: 300,
-            letterSpacing: "0.26em",
-            color: "rgba(241,245,242,0.62)",
+            gap: 28,
+            fontSize: 20,
+            fontWeight: 500,
+            color: "rgba(241,245,242,0.55)",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ width: 9, height: 9, borderRadius: 99, background: "#7FE4FF" }} />
-            PINEHOLLOW.STUDIO
-          </div>
-          <div style={{ display: "flex" }}>CURRENTLY BUILDING VESTIGE</div>
+          <span>pinehollow.studio</span>
+          <span style={{ width: 5, height: 5, borderRadius: 99, background: "rgba(241,245,242,0.4)" }} />
+          <span>Now building Vestige, a golf app</span>
         </div>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: "Bricolage", data: extraBold, weight: 800, style: "normal" },
-        { name: "Bricolage", data: light, weight: 300, style: "normal" },
+        { name: "Manrope", data: extraBold, weight: 800, style: "normal" },
+        { name: "Manrope", data: medium, weight: 500, style: "normal" },
       ],
     },
   );

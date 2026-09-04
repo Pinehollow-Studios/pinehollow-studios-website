@@ -1,7 +1,7 @@
 # Pinehollow Studios — Brand & Colour Reference
 
 The design system used across the Pinehollow Studios website. Palette name: **Glacial**.
-Source of truth: `app/globals.css` (`:root` tokens), `components/shared/pinehollow-mark.tsx`,
+Source of truth: `app/globals.css` (`:root` tokens), `components/mark.tsx`,
 and the icon files in `app/`.
 
 ---
@@ -54,6 +54,13 @@ The minimum working set for the app logo / mark:
 | Faint (`--lp-fg-faint`) | `rgba(241, 245, 242, 0.18)` | Very subtle |
 | Ice-ink (`--lp-ice-ink`) | `#06181F` | Dark text on top of ice fills (e.g. button labels) |
 
+### Vestige accent (product palette — only on controls that lead to Vestige)
+| Token | Hex | Role |
+|---|---|---|
+| Mint (`--v-mint`) | `#5BE4C3` | Gradient start |
+| Lime (`--v-lime`) | `#8FE85B` | Gradient end — `linear-gradient(135deg, mint, lime)` |
+| Vestige ink (`--v-ink`) | `#0A1A22` | Text on the gradient |
+
 ### Warm / paper (used sparingly)
 | Token | Hex | Role |
 |---|---|---|
@@ -104,9 +111,10 @@ beneath is the hollow). Drawn on a 64×64 grid.
 ---
 
 ## Typography
-- **Display:** Bricolage Grotesque — ExtraBold (800) for heavy UPPERCASE headlines; Light (~275–300) for lowercase accents.
-- **Body:** Instrument Sans.
-- **Mono / labels:** Fragment Mono — small UPPERCASE, letter-spaced eyebrows and meta.
+- **One family: Manrope** (Google Fonts, via `next/font`). Weights in use: 800 for headlines (tight, `letter-spacing: -0.04em`), 700 for buttons and labels, 600 for nav, 500 for body.
+- Headline accents: a single word in ice `#7FE4FF`, never gradient text, never italics.
+- Labels: 12px, weight 700, `letter-spacing: 0.14em`, uppercase, ice.
+- Share card (`app/opengraph-image.tsx`) renders with the static TTFs in `assets/fonts/` (Manrope Medium 500 and ExtraBold 800).
 
 ---
 
