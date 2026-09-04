@@ -1,4 +1,4 @@
-import { COMPANY, EMAIL, VESTIGE_URL } from "@/lib/site";
+import { COMPANY, EMAIL, SUPPORT_EMAIL, VESTIGE_URL } from "@/lib/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -11,6 +11,7 @@ export function Footer() {
             <a href="#vestige">Vestige</a>
             <a href="#contact">Contact</a>
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
             <a href={`${VESTIGE_URL}/privacy`} target="_blank" rel="noopener noreferrer">
               Vestige privacy policy
             </a>

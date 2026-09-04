@@ -3,7 +3,7 @@ import { Manrope } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Motion } from "@/components/motion";
 import { Nav } from "@/components/nav";
-import { COMPANY, EMAIL, SITE_NAME, SITE_URL, VESTIGE_URL } from "@/lib/site";
+import { COMPANY, EMAIL, SITE_NAME, SITE_URL, SUPPORT_EMAIL, VESTIGE_URL } from "@/lib/site";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -67,6 +67,9 @@ const structuredData = {
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/icon?v=3`,
       email: EMAIL,
+      contactPoint: [
+        { "@type": "ContactPoint", contactType: "customer support", email: SUPPORT_EMAIL, availableLanguage: "en" },
+      ],
       foundingDate: "2026",
       address: { "@type": "PostalAddress", addressCountry: "GB" },
       sameAs: [VESTIGE_URL],

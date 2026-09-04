@@ -503,6 +503,20 @@ html[data-scrolled] .ph-pill {
   .ph-copy:hover { color: var(--lp-fg); border-color: var(--ph-rule-hi); background: rgba(241, 245, 242, 0.04); }
 }
 
+.ph-support {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--lp-fg-dim);
+}
+.ph-support-link {
+  color: var(--lp-fg-mute);
+  border-bottom: 1px solid var(--ph-rule-hi);
+  transition: color var(--dur-hover) var(--ease-hover), border-color var(--dur-hover) var(--ease-hover);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ph-support-link:hover { color: var(--lp-fg); border-color: var(--lp-fg); }
+}
+
 /* ─── FOOTER ─────────────────────────────────────────────── */
 .ph-foot {
   border-top: 1px solid var(--ph-rule);

@@ -3,7 +3,10 @@
 /** Canonical origin. Vercel 308-redirects the apex to www, so www is the indexable host. */
 export const SITE_URL = "https://www.pinehollow.studio";
 export const SITE_NAME = "Pinehollow Studios";
+/** The front door — general enquiries, press, a hello. */
 export const EMAIL = "hello@pinehollow.studio";
+/** Help with Vestige itself — beta, account, privacy requests. */
+export const SUPPORT_EMAIL = "support@pinehollow.studio";
 export const VESTIGE_URL = "https://vestige.golf";
 
 /** UK trading-disclosure line (Companies (Trading Disclosures) Regulations 2015, regs 24–25). */

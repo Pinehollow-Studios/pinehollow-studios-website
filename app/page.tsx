@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { CopyEmail } from "@/components/copy-email";
-import { EMAIL, VESTIGE, VESTIGE_URL } from "@/lib/site";
+import { EMAIL, SUPPORT_EMAIL, VESTIGE, VESTIGE_URL } from "@/lib/site";
 
 const step = (i: number) => ({ "--i": i }) as CSSProperties;
 
@@ -98,11 +98,15 @@ function Contact() {
         <span className="ph-k" data-reveal style={step(0)}>Contact</span>
         <h2 id="contact-h" className="ph-h2" data-reveal style={step(1)}>Say hello.</h2>
         <p className="ph-lede" data-reveal style={step(2)}>
-          For anything: questions, support, press. We read everything.
+          For anything: questions, press, a hello. We read everything.
         </p>
         <div data-reveal style={step(3)}>
           <CopyEmail email={EMAIL} />
         </div>
+        <p className="ph-support" data-reveal style={step(4)}>
+          Need help with Vestige? Write to{" "}
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="ph-support-link">{SUPPORT_EMAIL}</a>.
+        </p>
       </div>
     </section>
   );
