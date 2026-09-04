@@ -1,8 +1,8 @@
 :root {
-  /* ─── COLOUR · BASE — Glacial (unchanged palette) ───────── */
+  /* ─── COLOUR · BASE — Glacial ────────────────────────────── */
   --lp-base:           #070C12;
   --lp-base-deep:      #04080D;
-  --lp-base-raised:    #101822;
+  --lp-base-raised:    #0C141D;
 
   /* ─── COLOUR · SLATE ────────────────────────────────────── */
   --lp-pine:           #2A4A5E;
@@ -11,18 +11,24 @@
   --lp-pine-glow-hot:  #B0F1FF;
   --lp-pine-mist:      #D6F5FF;
 
-  /* ─── COLOUR · SECONDARY ────────────────────────────────── */
+  /* ─── COLOUR · SECONDARY (rare) ─────────────────────────── */
   --lp-ember:          #FF9560;
   --lp-sky:            #F2D7A8;
 
   /* ─── COLOUR · BUTTON-ON-ICE TEXT ───────────────────────── */
   --lp-ice-ink:        #06181F;
 
+  /* ─── VESTIGE ACCENT — the product's own palette, used ONLY on
+         controls that lead to Vestige (vestige.golf tokens) ─────── */
+  --v-mint:            #5BE4C3;
+  --v-lime:            #8FE85B;
+  --v-ink:             #0A1A22;
+  --v-gradient:        linear-gradient(135deg, var(--v-mint), var(--v-lime));
+
   /* ─── COLOUR · TYPE ─────────────────────────────────────── */
   --lp-fg:             #F1F5F2;
   --lp-fg-mute:        rgba(241, 245, 242, 0.62);
-  --lp-fg-dim:         rgba(241, 245, 242, 0.38);
-  --lp-fg-faint:       rgba(241, 245, 242, 0.18);
+  --lp-fg-dim:         rgba(241, 245, 242, 0.40);
 
   /* ─── PAPER ─────────────────────────────────────────────── */
   --ph-base:           #060A0F;
@@ -30,150 +36,92 @@
   --ph-paper-ink:      #1A1813;
 
   /* ─── HAIRLINES ─────────────────────────────────────────── */
-  --ph-rule:           rgba(241, 245, 242, 0.14);
-  --ph-rule-hi:        rgba(241, 245, 242, 0.28);
+  --ph-rule:           rgba(241, 245, 242, 0.12);
+  --ph-rule-hi:        rgba(241, 245, 242, 0.24);
   --ph-rule-faint:     rgba(241, 245, 242, 0.07);
 
-  /* ─── TYPOGRAPHY ────────────────────────────────────────── */
-  --lp-font-display:   var(--font-sans), system-ui, -apple-system, sans-serif;
-  --lp-font-body:      var(--font-sans), system-ui, -apple-system, sans-serif;
-  --lp-font-mono:      var(--font-mono), ui-monospace, monospace;
-  --ph-headline:       var(--font-display), 'Bricolage Grotesque', system-ui, sans-serif;
-  /* "serif" accent token now resolves to the display face — accents are
-     light-weight lowercase Bricolage, no italics anywhere on the site */
-  --ph-serif:          var(--font-display), 'Bricolage Grotesque', system-ui, sans-serif;
-
-  --lp-track-body:     -0.01em;
+  /* ─── TYPOGRAPHY — Manrope throughout ───────────────────── */
+  --lp-font:           var(--font-sans), 'Manrope', system-ui, -apple-system, sans-serif;
 
   /* ─── LAYOUT ────────────────────────────────────────────── */
-  --lp-container:      1360px;
-  --lp-gutter:         clamp(20px, 3vw, 40px);
-  --lp-section-y:      clamp(96px, 11vw, 180px);
+  --lp-container:      1080px;
+  --lp-gutter:         clamp(20px, 4vw, 32px);
+  --lp-section-y:      clamp(72px, 9vw, 120px);
+  --ph-radius-lg:      24px;
+  --ph-radius:         14px;
+  --ph-nav-offset:     96px;
+  --ph-nav-h:          72px; /* fixed pill nav: padding + 44px pill */
 
-  /* ─── MOTION ────────────────────────────────────────────── */
-  --lp-ease:           cubic-bezier(0.2, 0.7, 0.2, 1);
-  --ph-ease-out:       cubic-bezier(0.16, 1, 0.3, 1);
-  --ph-ease-expo:      cubic-bezier(0.87, 0, 0.13, 1);
-  --lp-dur:            360ms;
+  /* ─── MOTION TOKENS ─────────────────────────────────────── */
+  /* ease-out quint: entrances and reveals (Linear/Raycast house curve) */
+  --ease-out:          cubic-bezier(0.23, 1, 0.32, 1);
+  /* standard: state changes, nav background (Material 3 / Stripe) */
+  --ease-standard:     cubic-bezier(0.2, 0, 0, 1);
+  /* quad out: hover colour/brightness (Linear 160ms) */
+  --ease-hover:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --dur-hover:         160ms;
+  --dur-press:         120ms;
+  --dur-state:         200ms;
+  --dur-reveal:        480ms;
+  --dur-enter:         800ms;
+  --rise:              16px;
 }
 
 /* ─── RESET ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: var(--ph-nav-offset); }
 
 html, body {
   margin: 0; padding: 0;
   -webkit-tap-highlight-color: transparent;
   background: var(--ph-base);
   color: var(--lp-fg);
-  font-family: var(--lp-font-body);
+  font-family: var(--lp-font);
+  font-weight: 500;
   font-size: 16px;
-  line-height: 1.6;
-  letter-spacing: var(--lp-track-body);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-body {
-  min-height: 100vh;
-  overflow-x: clip;
-}
-
-/* film grain over everything — fixed, very faint, makes flats feel printed */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 2000;
-  opacity: 0.038;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  animation: ph-grain 0.9s steps(2) infinite;
-}
-@keyframes ph-grain {
-  0%   { transform: translate(0, 0); }
-  50%  { transform: translate(-1.5%, 1%); }
-  100% { transform: translate(1%, -1.5%); }
-}
-/* static grain on phones — the flicker isn't worth the battery on iOS */
-@media (max-width: 720px) {
-  body::after { animation: none; }
-}
+body { min-height: 100vh; overflow-x: clip; }
 
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; background: none; border: 0; color: inherit; padding: 0; }
-img { display: block; max-width: 100%; }
+a, button { touch-action: manipulation; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+p { margin: 0; }
+svg { display: block; }
+main:focus { outline: none; }
 
 ::selection { background: rgba(127, 228, 255, 0.35); color: var(--lp-fg); }
 
 :focus-visible {
   outline: 2px solid var(--lp-pine-glow);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* ─── SCROLLBAR ──────────────────────────────────────────── */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(241,245,242,0.16); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(241,245,242,0.28); }
-
-/* ─── CUSTOM CURSOR ──────────────────────────────────────── */
-/* native cursor is hidden only once JS mounts and adds .ph-has-cursor */
-html.ph-has-cursor,
-html.ph-has-cursor a,
-html.ph-has-cursor button,
-html.ph-has-cursor [data-cursor] { cursor: none; }
-
-.ph-cursor-dot,
-.ph-cursor-ring {
+/* skip link — visible only on focus */
+.ph-skip {
   position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 3000;
-  border-radius: 50%;
-  will-change: transform;
-}
-.ph-cursor-dot {
-  width: 6px; height: 6px;
-  margin: -3px 0 0 -3px;
-  background: var(--lp-pine-glow);
-}
-.ph-cursor-ring {
-  width: 36px; height: 36px;
-  margin: -18px 0 0 -18px;
-  border: 1px solid rgba(127, 228, 255, 0.55);
-  transition: width 360ms var(--ph-ease-out), height 360ms var(--ph-ease-out),
-              margin 360ms var(--ph-ease-out), border-color 240ms var(--lp-ease),
-              background-color 240ms var(--lp-ease), opacity 240ms var(--lp-ease);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.ph-cursor-ring[data-mode="link"] {
-  width: 64px; height: 64px;
-  margin: -32px 0 0 -32px;
-  border-color: rgba(127, 228, 255, 0.9);
-  background: rgba(127, 228, 255, 0.08);
-}
-.ph-cursor-ring[data-mode="text"] {
-  width: 14px; height: 14px;
-  margin: -7px 0 0 -7px;
-  opacity: 0.4;
-}
-.ph-cursor-label {
-  font-family: var(--lp-font-mono);
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--lp-pine-glow);
+  top: 12px; left: 12px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: var(--lp-fg);
+  color: var(--lp-ice-ink);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 999px;
+  transform: translateY(-200%);
   opacity: 0;
-  transition: opacity 240ms var(--lp-ease);
-  white-space: nowrap;
 }
-.ph-cursor-ring[data-mode="link"] .ph-cursor-label { opacity: 1; }
+.ph-skip:focus-visible {
+  transform: none;
+  opacity: 1;
+  outline-offset: 4px;
+}
 
 /* ─── UTILITIES ──────────────────────────────────────────── */
 .lp-container {
@@ -183,255 +131,503 @@ html.ph-has-cursor [data-cursor] { cursor: none; }
   padding: 0 var(--lp-gutter);
 }
 
-/* mono caps eyebrow */
-.ph-eyebrow {
-  font-family: var(--lp-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--lp-fg-mute);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.ph-eyebrow-dim { color: var(--lp-fg-dim); }
-.lp-overline { /* legacy alias */
-  font-family: var(--lp-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--lp-fg-mute);
-}
-
-/* hairlines */
-.ph-rule        { height: 1px; background: var(--ph-rule); border: 0; margin: 0; }
-.ph-rule-hi     { height: 1px; background: var(--ph-rule-hi); border: 0; margin: 0; }
-.ph-rule-faint  { height: 1px; background: var(--ph-rule-faint); border: 0; margin: 0; }
-.lp-hr          { height: 1px; background: var(--ph-rule); border: 0; }
-
-/* ─── DISPLAY TYPE — heavy caps + light lowercase accents ── */
-.ph-display {
-  font-family: var(--ph-headline);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 0.92;
-  /* Bricolage display optical cut */
-  font-variation-settings: 'opsz' 96;
-}
-.ph-display em,
-.ph-serif {
-  font-family: var(--ph-serif);
-  font-style: normal;
-  font-weight: 275;
-  text-transform: lowercase;
-  letter-spacing: -0.025em;
-  font-variation-settings: 'opsz' 96;
-  line-height: 0.92;
-}
-
-/* sub-display: medium headings in tighter grotesk */
-.ph-h3 {
-  font-family: var(--ph-headline);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 1;
-  font-variation-settings: 'opsz' 60;
-}
-
-/* ─── LINKS ──────────────────────────────────────────────── */
-.ph-link {
-  position: relative;
-  color: var(--lp-fg);
-  background-image: linear-gradient(var(--lp-pine-glow), var(--lp-pine-glow));
-  background-size: 100% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  padding-bottom: 2px;
-  transition: background-size 360ms var(--lp-ease), color 240ms var(--lp-ease);
-}
-.ph-link:hover { color: var(--lp-pine-glow); }
-
-/* arrow link — mono caps with sliding arrow */
-.ph-arrow-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--lp-font-mono);
+.ph-k {
   font-size: 12px;
-  letter-spacing: 0.24em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--lp-fg);
-  transition: color 240ms var(--lp-ease);
-}
-.ph-arrow-link .ph-arrow-link-tip {
-  display: inline-block;
-  transition: transform 360ms var(--ph-ease-out);
   color: var(--lp-pine-glow);
 }
-.ph-arrow-link:hover { color: var(--lp-pine-glow); }
-.ph-arrow-link:hover .ph-arrow-link-tip { transform: translateX(6px); }
 
-/* solid ice block button */
+.ph-h1 {
+  font-size: clamp(42px, 7.4vw, 96px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  text-wrap: balance;
+}
+.ph-h1 em, .ph-h2 em { font-style: normal; color: var(--lp-pine-glow); }
+
+.ph-h2 {
+  font-size: clamp(32px, 4.6vw, 60px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.ph-lede {
+  font-size: clamp(17px, 1.5vw, 21px);
+  color: var(--lp-fg-mute);
+  max-width: 36em;
+  text-wrap: pretty;
+}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
 .ph-btn {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 30px;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
   background: var(--lp-pine-glow);
   color: var(--lp-ice-ink);
-  font-family: var(--lp-font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  position: relative;
-  overflow: hidden;
-  transition: color 400ms var(--ph-ease-out);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: var(--ph-radius);
+  transition:
+    background var(--dur-hover) var(--ease-hover),
+    border-color var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) ease-out;
 }
-.ph-btn::before {
+.ph-btn:active { transform: scale(0.97); }
+.ph-btn-ghost {
+  background: transparent;
+  color: var(--lp-fg);
+  border: 1px solid var(--ph-rule);
+}
+/* Vestige-bound buttons carry the product's mint→lime gradient */
+.ph-btn-vestige {
+  background: var(--v-gradient);
+  color: var(--v-ink);
+  box-shadow: 0 8px 24px -12px rgba(91, 228, 195, 0.55);
+  transition:
+    filter var(--dur-hover) var(--ease-hover),
+    box-shadow var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) ease-out;
+}
+.ph-btn-arrow {
+  display: inline-block;
+  transition: transform var(--dur-state) var(--ease-out);
+}
+.ph-btn-arrow-ext { font-size: 0.9em; }
+
+@media (hover: hover) and (pointer: fine) {
+  .ph-btn:hover { background: var(--lp-pine-mist); }
+  .ph-btn-ghost:hover { background: rgba(241, 245, 242, 0.06); border-color: var(--ph-rule-hi); }
+  .ph-btn-vestige:hover { background: var(--v-gradient); filter: brightness(1.08) saturate(1.05); box-shadow: 0 10px 28px -12px rgba(91, 228, 195, 0.7); }
+  .ph-btn:hover .ph-btn-arrow { transform: translateY(2px); }
+  .ph-btn:hover .ph-btn-arrow-ext { transform: translate(2px, -2px); }
+}
+
+/* ─── NAV — floating pill ────────────────────────────────── */
+.ph-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: max(14px, env(safe-area-inset-top)) var(--lp-gutter) 14px;
+  pointer-events: none;
+}
+.ph-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid var(--ph-rule-faint);
+  border-radius: 999px;
+  background: rgba(6, 10, 15, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background var(--dur-state) var(--ease-standard),
+    border-color var(--dur-state) var(--ease-standard),
+    box-shadow var(--dur-state) var(--ease-standard),
+    backdrop-filter var(--dur-state) var(--ease-standard);
+}
+html[data-scrolled] .ph-pill {
+  background: rgba(6, 10, 15, 0.74);
+  border-color: var(--ph-rule);
+  box-shadow: 0 12px 40px -20px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.ph-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ph-pill-links { display: flex; gap: 6px; color: var(--lp-fg-mute); }
+.ph-pill-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 10px 0 14px;
+  border-radius: 999px;
+  transition: color var(--dur-hover) var(--ease-hover);
+}
+/* scroll-spy dot */
+.ph-pill-links a::before {
+  content: "";
+  position: absolute;
+  left: 2px; top: 50%;
+  width: 4px; height: 4px;
+  margin-top: -2px;
+  border-radius: 99px;
+  background: var(--lp-pine-glow);
+  transform: scale(0);
+  transition: transform 300ms var(--ease-out);
+}
+.ph-pill-links a[aria-current="page"] { color: var(--lp-fg); }
+.ph-pill-links a[aria-current="page"]::before { transform: scale(1); }
+.ph-pill-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  background: var(--lp-fg);
+  color: var(--lp-ice-ink);
+  padding: 0 16px;
+  border-radius: 999px;
+  transition: background var(--dur-hover) var(--ease-hover), transform var(--dur-press) ease-out;
+}
+.ph-pill-cta:active { transform: scale(0.97); }
+
+@media (hover: hover) and (pointer: fine) {
+  .ph-pill-links a:hover { color: var(--lp-fg); }
+  .ph-pill-cta:hover { background: var(--lp-pine-mist); }
+}
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.ph-hero {
+  position: relative;
+  text-align: center;
+  /* the nav is fixed, so the hero's own top padding clears it */
+  padding: calc(var(--ph-nav-h) + clamp(32px, 5vw, 64px)) 0 clamp(64px, 8vw, 96px);
+  overflow: clip;
+}
+.ph-glow {
+  position: absolute;
+  left: 0; right: 0;
+  top: -320px;
+  height: 900px;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 420px at 50% 32%, rgba(127, 228, 255, 0.16), transparent 65%),
+    radial-gradient(900px 520px at 50% 60%, rgba(42, 74, 94, 0.5), transparent 70%);
+  transform-origin: 50% 40%;
+}
+.ph-hero-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.ph-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lp-fg-mute);
+  border: 1px solid var(--ph-rule);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.ph-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 99px;
+  background: var(--lp-pine-glow);
+  box-shadow: 0 0 0 0 rgba(127, 228, 255, 0.5);
+}
+.ph-hero .ph-h1 { max-width: 12ch; }
+.ph-hero .ph-lede { margin: 0 auto; }
+.ph-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.ph-facts {
+  display: flex;
+  justify-content: center;
+  gap: 8px 28px;
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--lp-fg-dim);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+.ph-facts li::before {
+  content: "";
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 99px;
+  background: var(--lp-fg-dim);
+  margin-right: 10px;
+  vertical-align: 3px;
+}
+
+/* ─── SECTIONS ───────────────────────────────────────────── */
+.ph-section {
+  padding: var(--lp-section-y) 0;
+  scroll-margin-top: var(--ph-nav-offset);
+}
+
+/* Vestige card */
+.ph-card {
+  position: relative;
+  background: var(--lp-base-raised);
+  border: 1px solid var(--ph-rule);
+  border-radius: var(--ph-radius-lg);
+  padding: clamp(28px, 4vw, 56px);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(32px, 4vw, 48px);
+  align-items: center;
+  overflow: hidden;
+  transition: border-color var(--dur-state) var(--ease-standard);
+}
+/* pointer spotlight — painted only on fine pointers (see Motion) */
+.ph-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--lp-pine-mist);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 500ms var(--ph-ease-expo);
-}
-.ph-btn:hover::before { transform: scaleY(1); }
-.ph-btn > * { position: relative; }
-
-/* ─── HERO AURA (single soft glow) ───────────────────────── */
-.ph-hero-aura {
-  position: absolute;
-  inset: -120px -10% auto -10%;
-  height: 700px;
   pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(620px 380px at 22% 30%, rgba(127, 228, 255, 0.10), transparent 60%),
-    radial-gradient(700px 400px at 78% 8%, rgba(42, 74, 94, 0.45), transparent 65%);
-  filter: blur(2px);
+  background: radial-gradient(460px circle at var(--gx, 50%) var(--gy, 0%), rgba(127, 228, 255, 0.07), transparent 60%);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-standard);
 }
-
-/* ─── CREAM PAPER ────────────────────────────────────────── */
-.ph-paper {
-  background: var(--ph-paper);
-  color: var(--ph-paper-ink);
-  border-radius: 3px;
-  box-shadow: 0 80px 100px -40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 0, 0, 0.4);
+.ph-card > * { position: relative; }
+.ph-card-copy { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.ph-card-copy .ph-lede { font-size: 17px; max-width: 30em; }
+.ph-card-copy .ph-btn { margin-top: 10px; }
+.ph-spec {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
 }
-.ph-paper .ph-eyebrow,
-.ph-paper .ph-eyebrow-dim { color: rgba(26, 24, 19, 0.55); }
-
-/* ─── LIVE DOT ───────────────────────────────────────────── */
-.ph-live-dot {
+.ph-spec > div {
+  background: var(--ph-base);
+  border: 1px solid var(--ph-rule);
+  border-radius: var(--ph-radius);
+  padding: 18px;
+  transition: border-color var(--dur-state) var(--ease-standard);
+}
+.ph-spec dt {
+  font-size: 12px;
+  color: var(--lp-fg-dim);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.ph-spec dd {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.ph-spec dd[data-live]::before {
+  content: "";
   display: inline-block;
   width: 7px; height: 7px;
   border-radius: 99px;
   background: var(--lp-pine-glow);
-  box-shadow: 0 0 0 0 rgba(127, 228, 255, 0.6);
-  animation: ph-pulse 2.4s ease-in-out infinite;
-}
-@keyframes ph-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(127, 228, 255, 0.55); }
-  50%      { box-shadow: 0 0 0 8px rgba(127, 228, 255, 0); }
+  margin-right: 9px;
+  vertical-align: 2px;
+  box-shadow: 0 0 0 0 rgba(127, 228, 255, 0.5);
 }
 
-/* ─── MARQUEE ────────────────────────────────────────────── */
-.ph-marquee {
-  overflow: hidden;
-  border-top: 1px solid var(--ph-rule);
-  border-bottom: 1px solid var(--ph-rule);
-  white-space: nowrap;
-  position: relative;
+@media (hover: hover) and (pointer: fine) {
+  .ph-card:hover { border-color: var(--ph-rule-hi); }
+  .ph-card:hover::before { opacity: 1; }
+  .ph-spec > div:hover { border-color: var(--ph-rule-hi); }
 }
-.ph-marquee-track {
+
+/* Contact */
+.ph-contact {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.ph-contact .ph-lede { margin: 0 auto; }
+.ph-mail-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.ph-mail {
+  display: inline-block;
+  font-size: clamp(22px, 3.4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  border-bottom: 2px solid var(--lp-pine-glow);
+  padding-bottom: 4px;
+  overflow-wrap: anywhere;
+  transition: color var(--dur-hover) var(--ease-hover);
+}
+.ph-copy {
   display: inline-flex;
-  align-items: baseline;
-  animation: ph-scroll 36s linear infinite;
-  /* no will-change here — at display-type sizes the promoted layer can
-     exceed GPU texture limits and black out the whole frame */
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px 0 12px;
+  border: 1px solid var(--ph-rule);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lp-fg-mute);
+  transition:
+    color var(--dur-hover) var(--ease-hover),
+    border-color var(--dur-hover) var(--ease-hover),
+    background var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) ease-out;
 }
-.ph-marquee:hover .ph-marquee-track { animation-play-state: paused; }
-@keyframes ph-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.ph-copy:active { transform: scale(0.97); }
+.ph-copy[data-state="copied"] { color: var(--lp-pine-glow); border-color: rgba(127, 228, 255, 0.4); }
+.ph-copy[data-state="error"] { color: var(--lp-ember); }
+.ph-copy-icon { display: inline-flex; }
+
+@media (hover: hover) and (pointer: fine) {
+  .ph-mail:hover { color: var(--lp-pine-glow); }
+  .ph-copy:hover { color: var(--lp-fg); border-color: var(--ph-rule-hi); background: rgba(241, 245, 242, 0.04); }
 }
 
-/* ─── LINE-MASK TEXT REVEAL ──────────────────────────────── */
-/* each .ph-mline is an overflow-hidden window; inner slides up into place */
-.ph-mline {
-  display: block;
-  overflow: hidden;
-  /* breathing room so descenders/italics aren't clipped */
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
-.ph-mline-in {
-  display: block;
-  transform: translateY(118%) rotate(0.6deg);
-  transform-origin: 0 100%;
-  transition: transform 1100ms var(--ph-ease-expo);
-  transition-delay: calc(var(--mi, 0) * 110ms);
-  will-change: transform;
-}
-.ph-masked.in .ph-mline-in { transform: translateY(0) rotate(0); }
-
-/* ─── REVEAL-ON-SCROLL (class hook) ──────────────────────── */
-.ph-rev {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 800ms var(--lp-ease), transform 800ms var(--lp-ease);
-}
-.ph-rev.in { opacity: 1; transform: translateY(0); }
-
-/* ─── INDEX ROWS (work table) ────────────────────────────── */
-.ph-irow {
-  display: grid;
-  grid-template-columns: 90px 1.6fr 1fr 0.8fr 60px;
-  align-items: baseline;
-  gap: 24px;
-  padding: 30px 0;
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.ph-foot {
   border-top: 1px solid var(--ph-rule);
-  position: relative;
-  transition: padding-left 420ms var(--ph-ease-out);
+  padding: 32px 0 max(40px, env(safe-area-inset-bottom));
+  font-size: 13px;
+  color: var(--lp-fg-dim);
 }
-.ph-irow::before {
-  content: "";
-  position: absolute;
-  top: -1px; left: 0;
-  width: 100%; height: 1px;
-  background: var(--lp-pine-glow);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 600ms var(--ph-ease-expo);
+.ph-foot-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  color: var(--lp-fg-mute);
+  font-weight: 600;
 }
-a.ph-irow:hover { padding-left: 20px; }
-a.ph-irow:hover::before { transform: scaleX(1); }
+.ph-foot-links { display: flex; gap: 4px 12px; flex-wrap: wrap; margin: 0 -6px; }
+.ph-foot-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 6px;
+  transition: color var(--dur-hover) var(--ease-hover);
+}
+.ph-foot-legal { display: flex; flex-direction: column; gap: 8px; max-width: 72ch; line-height: 1.6; }
 
-/* ─── PAGE WIPE (route transition) ───────────────────────── */
-@keyframes ph-page-in {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-/* fill must NOT be "both"/"forwards": a filled transform (even identity)
-   makes .ph-page the containing block for position:fixed, which breaks
-   ScrollTrigger pinning (the principles section went blank on scroll). With
-   "backwards" the transform is dropped entirely once the entrance ends. */
-.ph-page { animation: ph-page-in 700ms var(--ph-ease-out) backwards; }
-
-/* ─── EDITORIAL RESPONSIVE HELPERS ───────────────────────── */
-@media (max-width: 980px) {
-  .ph-irow { grid-template-columns: 56px 1fr 60px; }
-  /* !important: cells often carry their own display from component styles
-     that load after this sheet and would otherwise win the cascade */
-  .ph-irow-hide { display: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  .ph-foot-links a:hover { color: var(--lp-fg); }
 }
 
-/* Intentionally do not honour prefers-reduced-motion at the CSS level — the
-   atmospheric motion is core to the brand identity and must render the same
-   on every machine, including Windows installs that ship with "Animation
-   effects" disabled in Accessibility settings. */
+/* ─── NOT FOUND ──────────────────────────────────────────── */
+.ph-404 {
+  min-height: 70svh;
+  margin-top: var(--ph-nav-h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+  padding-block: var(--lp-section-y);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .ph-card { grid-template-columns: 1fr; }
+  .ph-pill-links { display: none; }
+  .ph-pill { gap: 16px; }
+  /* 44px hit targets on touch */
+  .ph-brand, .ph-pill-cta { min-height: 44px; }
+}
+@media (max-width: 600px) {
+  :root { --rise: 10px; }
+  .ph-row { width: 100%; }
+  .ph-row .ph-btn { flex: 1 1 0; }
+}
+@media (max-width: 420px) {
+  .ph-spec { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOTION — declared only when the visitor has not asked for
+   reduced motion, so the default document is still (Stripe model).
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* hero entrance: fade + small rise + light blur, staggered */
+  @keyframes ph-enter {
+    from { opacity: 0; transform: translateY(var(--rise)); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  .ph-in {
+    animation: ph-enter var(--dur-enter) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  /* scroll reveals: hidden only once JS is running, shown once on intersect */
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  html.js [data-reveal][data-in] { opacity: 1; transform: none; }
+
+  /* ambient: the hero glow drifts slowly; paused when the hero is off-screen */
+  @keyframes ph-drift {
+    from { transform: translate3d(-2%, 0, 0) scale(1); }
+    to   { transform: translate3d(2%, 1.5%, 0) scale(1.06); }
+  }
+  .ph-glow { animation: ph-drift 24s ease-in-out infinite alternate; }
+  .ph-hero[data-offstage] .ph-glow { animation-play-state: paused; }
+
+  /* live dots */
+  @keyframes ph-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(127, 228, 255, 0.5); }
+    60%      { box-shadow: 0 0 0 7px rgba(127, 228, 255, 0); }
+  }
+  .ph-tag-dot, .ph-spec dd[data-live]::before { animation: ph-pulse 2.4s var(--ease-standard) infinite; }
+
+  /* copy feedback */
+  @keyframes ph-pop {
+    0% { transform: scale(0.8); }
+    60% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+  .ph-copy[data-state="copied"] .ph-copy-icon { animation: ph-pop 260ms var(--ease-out); }
+
+  /* skip link slides in */
+  .ph-skip { transition: transform var(--dur-state) var(--ease-out), opacity var(--dur-state) var(--ease-out); }
+
+  /* phones: no decorative loops, shorter rise */
+  @media (max-width: 600px) {
+    .ph-glow { animation: none; }
+  }
+}
+
+/* under reduced motion: keep colour transitions, drop movement entirely */
+@media (prefers-reduced-motion: reduce) {
+  .ph-btn, .ph-pill-cta, .ph-copy { transition-property: background, border-color, color; }
+  .ph-btn:active, .ph-pill-cta:active, .ph-copy:active { transform: none; }
+  .ph-btn-arrow, .ph-pill-links a::before { transition: none; }
+  .ph-pill { transition-duration: 0s; }
+}
