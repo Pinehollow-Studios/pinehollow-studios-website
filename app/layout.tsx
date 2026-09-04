@@ -70,6 +70,15 @@ const structuredData = {
       foundingDate: "2026",
       address: { "@type": "PostalAddress", addressCountry: "GB" },
       sameAs: [VESTIGE_URL],
+      // Vestige, by the @id vestige.golf publishes for itself, so the two
+      // sites join into one graph: the studio and the product it makes.
+      subOrganization: {
+        "@type": "Organization",
+        "@id": `${VESTIGE_URL}/#organization`,
+        name: "Vestige",
+        url: `${VESTIGE_URL}/`,
+      },
+      brand: { "@type": "Brand", name: "Vestige", url: `${VESTIGE_URL}/` },
     },
     {
       "@type": "WebSite",
