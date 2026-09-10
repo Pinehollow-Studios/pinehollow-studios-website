@@ -53,7 +53,7 @@ function Hero() {
 
 function Vestige() {
   const spec: Array<[label: string, value: string, live?: boolean]> = [
-    ["Status", "In development", true],
+    ["Status", "In beta", true],
     ["Platform", "iPhone"],
     ["Public beta", VESTIGE.publicBeta],
     ["Launch", VESTIGE.launch],
